@@ -1,13 +1,20 @@
-.input-section {
-    border: 1px solid red;
-    margin-top: 5rem;
+.layout {
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    justify-content: center;
+}
+
+.input-section {
+
+    margin-top: 5rem;
+    border: 5px solid rgb(63, 63, 63);
+    border-radius: 5px;
+    box-shadow: 20px -15px 5px 10px rgb(161, 139, 139);
+    min-width: 800px;
 
     h1{
         margin: 0;
         padding: 0;
+        text-align: center;
     }
     input{
         height: 28px;
@@ -16,5 +23,5 @@
     }
 }
 .todo-section{
-    border: 1px solid green;
+    background: red;
 }
