@@ -1,8 +1,10 @@
-const todoInput = document.getElementById("new-todo-input")
-todoInput.addEventListener("input", (e)=> alertMe(e))
+const todoInput = document.getElementById("new-todo-input");
+const addTodoButton = document.getElementById("add-todo-button");
+addTodoButton.addEventListener("click", () => addTodoButtonAction());
+let todo = JSON.parse(localStorage.getItem("todo-list"));
 
-let enteredValue;
-function alertMe(e){
-    enteredValue = e.target.value
-    console.log(enteredValue)
+const addTodoButtonAction = () => {
+    const value = todoInput.value;
+    console.log("Creating a new todo item with the text: " + value);
+    todoInput.value = ""
 }
