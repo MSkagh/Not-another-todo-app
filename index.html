@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo</title>
-    <link href="/styles.css" rel="stylesheet"></link>
+    <link href="/styles/main.css" rel="stylesheet"></link>
 </head>
 <body>
-    <script type="text/javascript" src="main.js" defer></script>
+    <script type="module" src="/script/main.js" ></script>
     <main class="layout">
-        <section class="input-section">
+        <h1 class="disclaimer"> this is the development branch</h1>
+        <section class="list-section">
+            <input id="new-list-input"/>
+            <button id="add-list-button">Add</button>
+            <button id="delete-lists">Delete All</button>
+            <ul id="list-list"></ul>
+        </section>
+        <section class="todo-section">
             <h1>Enter stuff to do<h1>
             <input id="new-todo-input"/>
             <button id="add-todo-button">Add</button>
-            <p class="disclaimer"> this is the development branch</p>
-        </section>
-        <section class="todo-section">
+            <button id="delete-todos">Delete All</button>    
             <ul id="todo-list"></ul>
         </section>
-
     </main>
 </body>
 </html>

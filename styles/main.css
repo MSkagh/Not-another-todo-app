@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-.input-section {
+.todo-section {
 
     margin-top: 5rem;
     border: 5px solid rgb(63, 63, 63);
@@ -22,10 +22,4 @@
         border: 2px solid gainsboro;
         border-radius: 5px;
     }
-}
-.todo-section{
-    margin-top: 2em;
-    border: 5px solid rgb(63, 63, 63);
-    border-radius: 5px;
-    min-width: 800px;
 }
