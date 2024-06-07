@@ -11,15 +11,11 @@ const deleteListsButton = document.getElementById("delete-lists");
 deleteTodosButton.addEventListener("click", () => clearTodos());
 deleteListsButton.addEventListener("click", () => clearLists());
 
-
-
 const todoList = document.getElementById("todo-list")
 const listList = document.getElementById("list-list")
 
-
 addTodoButton.addEventListener("click", () => addTodoButtonAction());
 addListButton.addEventListener("click", () => addListButtonAction());
-
 
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 let lists = JSON.parse(localStorage.getItem("lists")) || [];
