@@ -1,16 +1,15 @@
 .layout {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 5fr;
+    padding: 1rem 2rem;
 }
 
 .todo-section {
-
-    margin-top: 5rem;
     border: 5px solid rgb(63, 63, 63);
     border-radius: 5px;
     box-shadow: 20px -15px 5px 10px rgb(161, 139, 139);
-    min-width: 800px;
+    margin: 0rem 5rem;
 
     h1{
         margin: 0;
