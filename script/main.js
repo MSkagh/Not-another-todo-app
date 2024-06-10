@@ -1,106 +1,105 @@
+import { List } from "./list.js";
+import { Task } from "./task.js";
+
 //USER INPUTS
 const todoInput = document.getElementById("new-todo-input");
 const listInput = document.getElementById("new-list-input");
 const addTodoButton = document.getElementById("add-todo-button");
 const addListButton = document.getElementById("add-list-button");
 
-const deleteTodosButton = document.getElementById("delete-todos");
 const deleteListsButton = document.getElementById("delete-lists");
 
-deleteTodosButton.addEventListener("click", () => deleteAllTodos());
 deleteListsButton.addEventListener("click", () => deleteAllLists());
 
 const todoList = document.getElementById("todo-list")
 const listList = document.getElementById("list-list")
 
-addTodoButton.addEventListener("click", () => addTodoButtonAction());
+addTodoButton.addEventListener("click", () => addTaskButtonAction());
 addListButton.addEventListener("click", () => addListButtonAction());
 
-let LOCAL_TODOS = JSON.parse(localStorage.getItem("todos")) || [];
 let LOCAL_LISTS = JSON.parse(localStorage.getItem("lists")) || [];
-const getSelectedList = ()=> document.querySelector("[data-selected=true]")
+const getSelectedList = ()=> LOCAL_LISTS.filter(list => list.selected === true)[0]
 
 for (const item of LOCAL_LISTS) {
-    createListItem(item)
+    createListElement(item)
 }
 
-const addTodoButtonAction = () => {
+const addTaskButtonAction = () => {
     if (!todoInput.value.trim()) return
     const selectedList = getSelectedList()
-    const todo = {
-        parent: selectedList.innerHTML,
-        completed: false,
-        text: todoInput.value
-    }
-    createTodoItem(todo.text)
-    LOCAL_TODOS.push(todo)
+    const task = new Task(crypto.randomUUID(), todoInput.value, false)
+    createTaskElement(task.name)
+    selectedList.tasks.push(task)
     persistChanges()
 }
 
 const addListButtonAction = () => {
     if (!listInput.value.trim()) return
     const name = listInput.value
-    createListItem(name)
-    LOCAL_LISTS.push(name);
-    persistChanges();
+    const newList = new List(crypto.randomUUID(), name, false, [], true)
+    createListElement(newList)
+    LOCAL_LISTS.push(newList);
     listInput.value = "";
+    persistChanges();
 }
 
-function createListItem(listName) {
+function createListElement(list) {
     deselectAllLists();
     const li = document.createElement("li");
     li.addEventListener("click", (e) => onListClick(e));
-    li.dataset.selected = true;
-    li.innerHTML = listName;
+    li.innerHTML = list.name;
     listList.appendChild(li);
+    
 }
 
-function createTodoItem(text){
+function createTaskElement(text){
     const li = document.createElement("li");
     li.innerHTML = text;
+    li.addEventListener('click', (e) => onTaskClick(e))
     todoList.appendChild(li);
+}
+
+function onTaskClick(e){
+    const name = e.target.innerHTML
+    const indexOfTask = getSelectedList().tasks.findIndex((task => task.name === name))
+    console.log(getSelectedList().tasks.slice(indexOfTask,1))
+    persistChanges()
+    loadTasks()
+    
 }
 
 function onListClick(e) {
     deselectAllLists()
-    e.target.dataset.selected = true
+    LOCAL_LISTS.map((list)=> {if(list.name === e.target.innerHTML){list.selected = true}})
     console.log("List selected: " + e.target.innerHTML)
-    loadTodo(e.target.innerHTML)
+    loadTasks(e.target.innerHTML)
 }
 
-function loadTodo(name){
-    clearTodos();
-    for (let i = 0; i < LOCAL_TODOS.length; i++) {
-        if (LOCAL_TODOS[i].parent === name){
-            createTodoItem(LOCAL_TODOS[i].text)
-        }
+function loadTasks(){
+    clearTasks();
+    const selectedList = getSelectedList()
+    for (const task of selectedList.tasks) {
+            createTaskElement(task.name)
     }
+    persistChanges();
 }
 
 function deselectAllLists() {
-    for (const child of listList.children) {
-        child.dataset.selected = false
+    for (const list of LOCAL_LISTS){
+        list.selected = false;
     }
 }
 
 function persistChanges() {
-    localStorage.setItem("todos", JSON.stringify(LOCAL_TODOS));
     localStorage.setItem("lists", JSON.stringify(LOCAL_LISTS));
 }
 
-function clearTodos(){
+function clearTasks(){
     while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild)
     }
 }
 
-function deleteAllTodos() {
-    LOCAL_TODOS = []
-    persistChanges()
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.firstChild)
-    }
-}
 function deleteAllLists() {
     LOCAL_LISTS = []
     persistChanges()
