@@ -23,7 +23,7 @@ const getSelectedList = ()=> LOCAL_LISTS.filter(list => list.selected === true)[
 for (const item of LOCAL_LISTS) {
     createListElement(item)
 }
-
+loadTasks()
 const addTaskButtonAction = () => {
     if (!todoInput.value.trim()) return
     const selectedList = getSelectedList()
@@ -44,7 +44,7 @@ const addListButtonAction = () => {
 }
 
 function createListElement(list) {
-    deselectAllLists();
+    
     const li = document.createElement("li");
     li.addEventListener("click", (e) => onListClick(e));
     li.innerHTML = list.name;
@@ -62,10 +62,8 @@ function createTaskElement(text){
 function onTaskClick(e){
     const name = e.target.innerHTML
     const indexOfTask = getSelectedList().tasks.findIndex((task => task.name === name))
-    console.log(getSelectedList().tasks.slice(indexOfTask,1))
-    persistChanges()
+    getSelectedList().tasks.splice(indexOfTask,1)
     loadTasks()
-    
 }
 
 function onListClick(e) {
