@@ -1,4 +1,5 @@
 import { List } from "./list.js";
+import { LocalData } from "./localData.js";
 import { Task } from "./task.js";
 
 //USER INPUTS
@@ -17,79 +18,50 @@ const listList = document.getElementById("list-list")
 addTodoButton.addEventListener("click", () => addTaskButtonAction());
 addListButton.addEventListener("click", () => addListButtonAction());
 
-let LOCAL_LISTS = JSON.parse(localStorage.getItem("lists")) || [];
-const getSelectedList = ()=> LOCAL_LISTS.filter(list => list.selected === true)[0]
+const storage = new LocalData();
 
-for (const item of LOCAL_LISTS) {
-    createListElement(item)
+function loadLists(){
+    for (const item of storage.LOCAL_LISTS) {
+        const list = new List(item)
+        list.createListElement()
+    }
 }
-loadTasks()
+
+
 const addTaskButtonAction = () => {
     if (!todoInput.value.trim()) return
-    const selectedList = getSelectedList()
-    const task = new Task(crypto.randomUUID(), todoInput.value, false)
-    createTaskElement(task.name)
-    selectedList.tasks.push(task)
-    persistChanges()
+    const task = new Task(crypto.randomUUID(), todoInput.value, false, new Date(Date.now()))
+    task.createTaskElement()
+    storage.saveTask(task)
 }
 
 const addListButtonAction = () => {
     if (!listInput.value.trim()) return
-    const name = listInput.value
-    const newList = new List(crypto.randomUUID(), name, false, [], true)
-    createListElement(newList)
-    LOCAL_LISTS.push(newList);
-    listInput.value = "";
-    persistChanges();
-}
-
-function createListElement(list) {
-    
-    const li = document.createElement("li");
-    li.addEventListener("click", (e) => onListClick(e));
-    li.innerHTML = list.name;
-    listList.appendChild(li);
-    
-}
-
-function createTaskElement(text){
-    const li = document.createElement("li");
-    li.innerHTML = text;
-    li.addEventListener('click', (e) => onTaskClick(e))
-    todoList.appendChild(li);
-}
-
-function onTaskClick(e){
-    const name = e.target.innerHTML
-    const indexOfTask = getSelectedList().tasks.findIndex((task => task.name === name))
-    getSelectedList().tasks.splice(indexOfTask,1)
-    loadTasks()
-}
-
-function onListClick(e) {
     deselectAllLists()
-    LOCAL_LISTS.map((list)=> {if(list.name === e.target.innerHTML){list.selected = true}})
-    console.log("List selected: " + e.target.innerHTML)
-    loadTasks(e.target.innerHTML)
+    const name = listInput.value
+    const listObject = storage.createListDTO(crypto.randomUUID, name, false, new Date(Date.now()), [], true)
+    const newList = new List(listObject)
+    storage.saveList(newList)
+    newList.createListElement();
+    listInput.value = "";
+
+    
 }
 
-function loadTasks(){
+export function loadTasks(){
     clearTasks();
-    const selectedList = getSelectedList()
+    const selectedList = storage.getSelectedList()
+    if (!selectedList) return
     for (const task of selectedList.tasks) {
-            createTaskElement(task.name)
+            const {id, name, completed, creationDate} = task;
+            new Task(id, name, completed, creationDate).createTaskElement()
     }
-    persistChanges();
 }
 
-function deselectAllLists() {
-    for (const list of LOCAL_LISTS){
+export function deselectAllLists() {
+    for (const list of storage.LOCAL_LISTS){
         list.selected = false;
     }
-}
-
-function persistChanges() {
-    localStorage.setItem("lists", JSON.stringify(LOCAL_LISTS));
 }
 
 function clearTasks(){
@@ -99,9 +71,10 @@ function clearTasks(){
 }
 
 function deleteAllLists() {
-    LOCAL_LISTS = []
-    persistChanges()
+    storage.deleteAllLists()
     while (listList.firstChild) {
         listList.removeChild(listList.firstChild)
     }
 }
+loadLists()
+loadTasks()

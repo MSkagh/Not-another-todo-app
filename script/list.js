@@ -1,10 +1,29 @@
+import { LocalData } from "./localData.js";
+import { deselectAllLists, loadTasks } from "./main.js";
+
+
 export class List{
-    constructor(id, name, completed, tasks, selected){
-        this.id = id;
-        this.name = name;
-        this.completed = completed;
-        this.creationDate = new Date(Date.now());
-        this.tasks = tasks;
-        this.selected = selected;
+    constructor(listObject){
+        this.id = listObject.id;
+        this.name = listObject.name;
+        this.completed = listObject.completed;
+        this.creationDate = listObject.creationDate;
+        this.tasks = listObject.tasks;
+        this.selected = listObject.selected;
     }
+
+    createListElement(){
+        const listList = document.getElementById("list-list")
+        const li = document.createElement("li");
+        li.addEventListener("click", (e) => this.onListClick(e));
+        li.innerHTML = this.name;
+        listList.appendChild(li);
+    }
+    onListClick(e){
+        console.log(e.target.innerHTML)
+        this.selected = true
+        LocalData.persistChanges()
+        loadTasks()
+    }
+    
 }
