@@ -14,13 +14,13 @@ export class LocalData{
     }
     saveList(data){
         this.LOCAL_LISTS.push(data)
-        LocalData.persistChanges()
+        this.persistChanges()
     }
     saveTask(data){
         this.getSelectedList().tasks.push(data)
-        LocalData.persistChanges()
+        this.persistChanges()
     }
-    static persistChanges() {
+    persistChanges() {
         localStorage.setItem("lists", JSON.stringify(this.LOCAL_LISTS));
     }
     getSelectedList(){

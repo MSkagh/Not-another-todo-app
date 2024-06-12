@@ -10,17 +10,16 @@
     <script type="module" src="/script/main.js" ></script>
     <main class="layout">
     
-        <section class="list-section">
-            <input id="new-list-input"/>
-            <button id="add-list-button">Add</button>
-            <button id="delete-lists">Delete All</button>
-            <ul id="list-list"></ul>
-        </section>
         <section class="todo-section">
-            <h1>Enter stuff to do<h1>
-            <input id="new-todo-input"/>
-            <button id="add-todo-button">Add</button>  
+            <h1>Add a todo-list</h1>
+            <input autocomplete="off" id="new-todo-input"/>
             <ul id="todo-list"></ul>
+            <button id="delete-lists">Delete All</button>
+        </section>
+        <section class="task-section">
+            <h1>Add a task</h1>
+            <input autocomplete="off" id="new-task-input"/>
+            <ul id="task-list"></ul>
         </section>
     </main>
 </body>

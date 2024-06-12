@@ -1,0 +1,41 @@
+.todo-section{
+    box-shadow: 5px 5px 5px 5px #fff200;
+    background-color: #fff2006a;
+    padding: 1rem;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+
+    button{
+        border: none;
+        background: none;
+        box-shadow: 2px 2px 0px 3px;
+    }
+    h1{
+        font-size: 28px;
+        margin: 0;
+        padding: 0;
+        line-height: calc(28px * 1.5);
+        letter-spacing: -1.5px;
+    }
+    input{
+        border: none;
+    
+    }
+    input:focus-visible{
+        outline: none;
+    }
+
+    ul{
+        padding-inline-start: 0;
+        li{
+            list-style: none;
+            margin: 5px;
+            cursor: pointer;
+        }
+        li:hover{
+            opacity: 0.75;
+        }
+
+    }
+}

@@ -3,20 +3,18 @@ import { LocalData } from "./localData.js";
 import { Task } from "./task.js";
 
 //USER INPUTS
+const taskInput = document.getElementById("new-task-input");
 const todoInput = document.getElementById("new-todo-input");
-const listInput = document.getElementById("new-list-input");
-const addTodoButton = document.getElementById("add-todo-button");
-const addListButton = document.getElementById("add-list-button");
 
 const deleteListsButton = document.getElementById("delete-lists");
 
 deleteListsButton.addEventListener("click", () => deleteAllLists());
 
+const taskList = document.getElementById("task-list")
 const todoList = document.getElementById("todo-list")
-const listList = document.getElementById("list-list")
 
-addTodoButton.addEventListener("click", () => addTaskButtonAction());
-addListButton.addEventListener("click", () => addListButtonAction());
+taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
+todoInput.addEventListener("keydown", (e) => addListButtonAction(e));
 
 const storage = new LocalData();
 
@@ -28,22 +26,25 @@ function loadLists(){
 }
 
 
-const addTaskButtonAction = () => {
-    if (!todoInput.value.trim()) return
-    const task = new Task(crypto.randomUUID(), todoInput.value, false, new Date(Date.now()))
+const addTaskButtonAction = (e) => {
+    if (!taskInput.value.trim()) return
+    if (e.key !== "Enter") return
+    const task = new Task(crypto.randomUUID(), taskInput.value, false, new Date(Date.now()))
     task.createTaskElement()
     storage.saveTask(task)
+    taskInput.value = ""
 }
 
-const addListButtonAction = () => {
-    if (!listInput.value.trim()) return
+const addListButtonAction = (e) => {
+    if (!todoInput.value.trim()) return
+    if (e.key !== "Enter") return
     deselectAllLists()
-    const name = listInput.value
+    const name = todoInput.value
     const listObject = storage.createListDTO(crypto.randomUUID, name, false, new Date(Date.now()), [], true)
     const newList = new List(listObject)
     storage.saveList(newList)
     newList.createListElement();
-    listInput.value = "";
+    todoInput.value = "";
 
     
 }
@@ -65,15 +66,15 @@ export function deselectAllLists() {
 }
 
 function clearTasks(){
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.firstChild)
+    while (taskList.firstChild) {
+        taskList.removeChild(taskList.firstChild)
     }
 }
 
 function deleteAllLists() {
     storage.deleteAllLists()
-    while (listList.firstChild) {
-        listList.removeChild(listList.firstChild)
+    while (todoList.firstChild) {
+        todoList.removeChild(todoList.firstChild)
     }
 }
 loadLists()

@@ -1,0 +1,33 @@
+.task-section {
+    border: 1px solid rgb(63, 63, 63);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px 5px rgb(161, 139, 139);
+    margin: 0rem 5rem;
+    height: min-content;
+    display: flex;
+    flex-direction: column;
+    h1{
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+    input{
+        height: 28px;
+        margin: auto;
+    }
+    input:focus-visible{
+        outline: none;
+    }
+    ul{
+        list-style: none;
+        padding-inline-start: 0;
+        li{
+            margin: 5px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        li:hover{
+            opacity: 0.75;
+        }
+    }
+}

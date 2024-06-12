@@ -7,7 +7,7 @@ export class Task{
     }
 
     createTaskElement(){
-        const todoList = document.getElementById("todo-list")
+        const todoList = document.getElementById("task-list")
         const li = document.createElement("li");
         li.innerHTML = this.name;
         li.addEventListener('click', () => this.onTaskClick())

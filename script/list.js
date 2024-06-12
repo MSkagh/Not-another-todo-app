@@ -13,16 +13,18 @@ export class List{
     }
 
     createListElement(){
-        const listList = document.getElementById("list-list")
+        const listList = document.getElementById("todo-list")
         const li = document.createElement("li");
-        li.addEventListener("click", (e) => this.onListClick(e));
+        li.addEventListener("click", (e) => this.onListClick());
         li.innerHTML = this.name;
         listList.appendChild(li);
     }
-    onListClick(e){
-        console.log(e.target.innerHTML)
-        this.selected = true
-        LocalData.persistChanges()
+    onListClick(){
+        console.log(this.name)
+        this.selected === true ? this.selected = false : this.selected = true;
+        console.log(this.selected)
+
+        //persistChanges()
         loadTasks()
     }
     
