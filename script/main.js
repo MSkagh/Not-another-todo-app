@@ -18,18 +18,29 @@ todoInput.addEventListener("keydown", (e) => addListButtonAction(e));
 
 const storage = new LocalData();
 
-function loadLists(){
-    for (const item of storage.LOCAL_LISTS) {
-        const list = new List(item)
-        list.createListElement()
-    }
+
+function render(){
+    clearTasks()
+    clearLists()
+    loadLists()
+    loadTasks()
 }
 
+
+function loadLists(){
+    for (const list of storage.getLists()) {
+        
+        list.renderElement(()=>{
+            storage.setSelectedList(list.name)
+            render()
+        });
+    }
+}
 
 const addTaskButtonAction = (e) => {
     if (!taskInput.value.trim()) return
     if (e.key !== "Enter") return
-    const task = new Task(crypto.randomUUID(), taskInput.value, false, new Date(Date.now()))
+    const task = new Task(taskInput.value, false, new Date(Date.now()))
     task.createTaskElement()
     storage.saveTask(task)
     taskInput.value = ""
@@ -38,30 +49,19 @@ const addTaskButtonAction = (e) => {
 const addListButtonAction = (e) => {
     if (!todoInput.value.trim()) return
     if (e.key !== "Enter") return
-    deselectAllLists()
     const name = todoInput.value
-    const listObject = storage.createListDTO(crypto.randomUUID, name, false, new Date(Date.now()), [], true)
-    const newList = new List(listObject)
+    const newList = new List(name, false, [], true)
     storage.saveList(newList)
-    newList.createListElement();
-    todoInput.value = "";
-
-    
+    todoInput.value = "";   
+    render()
 }
 
 export function loadTasks(){
-    clearTasks();
-    const selectedList = storage.getSelectedList()
+    const selectedList = storage.getSelectedList();
     if (!selectedList) return
     for (const task of selectedList.tasks) {
-            const {id, name, completed, creationDate} = task;
-            new Task(id, name, completed, creationDate).createTaskElement()
-    }
-}
-
-export function deselectAllLists() {
-    for (const list of storage.LOCAL_LISTS){
-        list.selected = false;
+            const {name, completed, creationDate} = task;
+            new Task(name, completed, creationDate).createTaskElement()
     }
 }
 
@@ -71,11 +71,16 @@ function clearTasks(){
     }
 }
 
-function deleteAllLists() {
-    storage.deleteAllLists()
-    while (todoList.firstChild) {
+function clearLists(){
+    while(todoList.firstChild) {
         todoList.removeChild(todoList.firstChild)
     }
 }
-loadLists()
-loadTasks()
+
+function deleteAllLists() {
+    storage.deleteAllLists()
+    clearLists()
+}
+
+
+render()

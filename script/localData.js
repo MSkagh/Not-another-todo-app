@@ -1,33 +1,47 @@
+import { List } from "./list.js"
+
 export class LocalData{
     constructor(){
         this.LOCAL_LISTS = JSON.parse(localStorage.getItem("lists")) || []
     }
-    createListDTO(id, name, completed, creationDate, tasks, selected){
-        return {
-            id,
-            name,
-            completed,
-            creationDate,
-            tasks,
-            selected,
-        }
-    }
-    saveList(data){
-        this.LOCAL_LISTS.push(data)
+    
+    saveList(list){
+        this.LOCAL_LISTS.push(list)
         this.persistChanges()
     }
-    saveTask(data){
-        this.getSelectedList().tasks.push(data)
+    saveTask(task){
+        this.getSelectedList().tasks.push(task)
         this.persistChanges()
     }
     persistChanges() {
         localStorage.setItem("lists", JSON.stringify(this.LOCAL_LISTS));
     }
     getSelectedList(){
-        return this.LOCAL_LISTS.filter(list => list.selected === true)[0]
+        const list = this.LOCAL_LISTS.filter(list => list.selected === true)[0]
+        return list ? new List(list.name, list.completed, list.tasks, list.selected) : null;
+    }
+    setSelectedList(name){
+        this.deselectAllLists();
+        this.LOCAL_LISTS.filter((list)=> list.name === name).map((list)=> list.selected = true)
+
+    }
+    getLists(){
+        const returnArray = []
+        for (const list of this.LOCAL_LISTS){
+            returnArray.push(new List(list.name, list.completed, list.tasks, list.selected))
+        }
+        return returnArray
+    }
+    getTasks(){
+        return this.getSelectedList().tasks ? null : this.getSelectedList().tasks
     }
     deleteAllLists(){
-        this.LOCAL_LISTS = []
+        this.LOCAL_LISTS = [];
         this.persistChanges()
+    }
+    deselectAllLists() {
+        for (const list of this.LOCAL_LISTS){
+            list.selected = false;
+        }
     }
 }
