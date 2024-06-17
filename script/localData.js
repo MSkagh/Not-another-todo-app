@@ -1,46 +1,55 @@
 import { List } from "./list.js"
 
-export class LocalData{
-    constructor(){
+export class LocalData {
+    constructor() {
         this.LOCAL_LISTS = JSON.parse(localStorage.getItem("lists")) || []
     }
-    
-    saveList(list){
+
+    saveList(list) {
         this.LOCAL_LISTS.push(list)
         this.persistChanges()
     }
-    saveTask(task){
+    saveTask(task) {
         this.getSelectedList().tasks.push(task)
         this.persistChanges()
     }
     persistChanges() {
         localStorage.setItem("lists", JSON.stringify(this.LOCAL_LISTS));
     }
-    getSelectedList(){
+    getSelectedList() {
         const list = this.LOCAL_LISTS.filter(list => list.selected === true)[0]
-        return list ? new List(list.name, list.completed, list.tasks, list.selected) : null;
+        return list ? new List(list.id, list.name, list.completed, list.tasks, list.selected) : null;
     }
-    setSelectedList(name){
+    setSelectedList(id) {
         this.deselectAllLists();
-        this.LOCAL_LISTS.filter((list)=> list.name === name).map((list)=> list.selected = true)
+        this.LOCAL_LISTS.filter((list) => list.id === id).map((list) => list.selected = true)
 
     }
-    getLists(){
+    getLists() {
         const returnArray = []
-        for (const list of this.LOCAL_LISTS){
-            returnArray.push(new List(list.name, list.completed, list.tasks, list.selected))
+        for (const list of this.LOCAL_LISTS) {
+            returnArray.push(new List(list.id, list.name, list.completed, list.tasks, list.selected))
         }
         return returnArray
     }
-    getTasks(){
+    getTasks() {
         return this.getSelectedList().tasks ? null : this.getSelectedList().tasks
     }
-    deleteAllLists(){
+    deleteAllLists() {
         this.LOCAL_LISTS = [];
         this.persistChanges()
     }
+    deleteListById(id) {
+        let indexOfList;
+        for (let i = 0; i < this.LOCAL_LISTS.length; i++) {
+            if (this.LOCAL_LISTS[i].id === id)
+                indexOfList = i;
+        }
+        this.LOCAL_LISTS.splice(indexOfList, 1)
+        this.persistChanges()
+    }
     deselectAllLists() {
-        for (const list of this.LOCAL_LISTS){
+        for (const list of this.LOCAL_LISTS) {
             list.selected = false;
         }
     }

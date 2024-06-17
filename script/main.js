@@ -19,7 +19,7 @@ todoInput.addEventListener("keydown", (e) => addListButtonAction(e));
 const storage = new LocalData();
 
 
-function render(){
+function render() {
     clearTasks()
     clearLists()
     loadLists()
@@ -27,52 +27,65 @@ function render(){
 }
 
 
-function loadLists(){
+function loadLists() {
     for (const list of storage.getLists()) {
-        
-        list.renderElement(()=>{
-            storage.setSelectedList(list.name)
+        const onClick = () => {
+            storage.setSelectedList(list.id)
             render()
-        });
+        }
+        const onDelete = () => {
+            storage.deleteListById(list.id)
+            render()
+        }
+        const onEdit = () => {
+            alert("edit")
+        }
+        list.renderElement(onClick, onDelete, onEdit);
     }
 }
 
 const addTaskButtonAction = (e) => {
     if (!taskInput.value.trim()) return
+    if(!storage.getSelectedList()) return
     if (e.key !== "Enter") return
     const task = new Task(taskInput.value, false, new Date(Date.now()))
-    task.createTaskElement()
+    task.renderElement()
     storage.saveTask(task)
     taskInput.value = ""
+    render()
 }
 
 const addListButtonAction = (e) => {
     if (!todoInput.value.trim()) return
     if (e.key !== "Enter") return
     const name = todoInput.value
-    const newList = new List(name, false, [], true)
+    const newList = new List(crypto.randomUUID(), name, false, [], true)
     storage.saveList(newList)
-    todoInput.value = "";   
+    todoInput.value = "";
     render()
 }
 
-export function loadTasks(){
+function loadTasks() {
     const selectedList = storage.getSelectedList();
     if (!selectedList) return
-    for (const task of selectedList.tasks) {
-            const {name, completed, creationDate} = task;
-            new Task(name, completed, creationDate).createTaskElement()
+    for (let i = 0; i < selectedList.tasks.length; i++) {
+        const { name, completed, creationDate } = selectedList.tasks[i];
+        const onClick = () => {
+            selectedList.tasks[i].completed = true
+            render()
+        }
+        new Task(name, completed, creationDate).renderElement(onClick)
     }
 }
 
-function clearTasks(){
+function clearTasks() {
     while (taskList.firstChild) {
         taskList.removeChild(taskList.firstChild)
     }
 }
 
-function clearLists(){
-    while(todoList.firstChild) {
+function clearLists() {
+    while (todoList.firstChild) {
         todoList.removeChild(todoList.firstChild)
     }
 }

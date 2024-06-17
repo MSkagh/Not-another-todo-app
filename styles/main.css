@@ -1,14 +1,15 @@
 @import url(/styles/lists.css);
 @import url(/styles/tasks.css);
-
-.layout {
-    background-color: #f5f5f5;
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 5fr;
-    padding: 1rem 2rem;
+body{
+    padding: 0;
     margin: 0;
-    height: 100vh;
+    background-color: gray;
 }
+.layout {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 5fr;
+  padding: 1rem 2rem;
+  margin: 0;
 
-
+}
