@@ -1,19 +1,28 @@
-.todo-section {
+.list-section {
   box-shadow: 5px 5px 5px 5px #fff2006d;
   background-color: #fff200;
   padding: 1rem;
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  scrollbar-color: #fff200 #fff2006d;
-  scrollbar-width: thin;
 
-  button {
-    border: none;
-    background: none;
-    box-shadow: 2px 2px 0px 3px;
+  .new-list-container{
+    display: grid;
+    align-content: center;
+    grid-auto-flow: column;
+
+    #new-list-input{
+      border: none;
+      box-shadow: -3px 0px 0px 3px;
+      height: 28px;
+    }
+    #new-list-input:focus-visible {
+      outline: none;
+    }
+    #new-list-button{
+      border: none;
+      background: none;
+      box-shadow: 3px 0px 0px 3px;
+    }
   }
+  
   h1 {
     font-size: 28px;
     margin: 0;
@@ -21,24 +30,20 @@
     line-height: calc(28px * 1.5);
     letter-spacing: -1.5px;
   }
-  input {
-    border: none;
-  }
-  input:focus-visible {
-    outline: none;
-  }
-
+  
   ul {
     padding-inline-start: 0;
     li {
       list-style: none;
       margin: 5px;
-      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
-    li:hover {
+    p{
+      cursor: pointer;
+    }
+    p:hover {
       opacity: 0.75;
     }
     .button-container{
@@ -47,6 +52,7 @@
     }
     .delete-button,
     .edit-button {
+      cursor: pointer;
       background-color: red;
       height: 20px;
       width: 30px;

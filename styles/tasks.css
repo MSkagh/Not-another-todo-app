@@ -3,34 +3,58 @@
   border-radius: 5px;
   box-shadow: 5px 5px 5px 5px rgb(161, 139, 139);
   margin: 0rem 5rem;
-  height: min-content;
-  display: flex;
-  flex-direction: column;
+  background: linear-gradient(167deg, #b9efee, #05465e);
+ 
   h1 {
     margin: 0;
     padding: 0;
     text-align: center;
   }
-  input {
-    height: 28px;
+  .new-task-container{
+    display: grid;
+    align-content: center;
+    grid-auto-flow: column;
     margin: auto;
-  }
-  input:focus-visible {
-    outline: none;
+    max-width: 300px;
+
+    #new-task-input{
+      height: 28px;
+      box-shadow: -3px 0px 0px 3px #009688;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      border: none;
+    }
+    #new-task-input:focus-visible{
+      outline: none;
+    }
+    #new-task-button{
+      background: green;
+      box-shadow: 3px 0px 0px 3px #009688;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border: none;
+    }
   }
   ul {
     list-style: none;
     padding-inline-start: 0;
-    li {
+    .task {
       margin: 5px;
       font-size: 24px;
       cursor: pointer;
+      border-radius: 7px;
+      padding: 5px;
+
+    }
+    li::after{
+      content: "...";
     }
     li:hover {
       opacity: 0.75;
     }
     .completed {
       background-color: green;
+      text-decoration: line-through;
     }
   }
 }

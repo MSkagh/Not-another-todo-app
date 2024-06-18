@@ -35,10 +35,7 @@ export class LocalData {
     getTasks() {
         return this.getSelectedList().tasks ? null : this.getSelectedList().tasks
     }
-    deleteAllLists() {
-        this.LOCAL_LISTS = [];
-        this.persistChanges()
-    }
+
     deleteListById(id) {
         let indexOfList;
         for (let i = 0; i < this.LOCAL_LISTS.length; i++) {

@@ -4,17 +4,16 @@ import { Task } from "./task.js";
 
 //USER INPUTS
 const taskInput = document.getElementById("new-task-input");
-const todoInput = document.getElementById("new-todo-input");
+const listInput = document.getElementById("new-list-input");
 
-const deleteListsButton = document.getElementById("delete-lists");
-
-deleteListsButton.addEventListener("click", () => deleteAllLists());
+const newListButton = document.getElementById("new-list-button");
 
 const taskList = document.getElementById("task-list")
-const todoList = document.getElementById("todo-list")
+const listList = document.getElementById("list-list")
 
+newListButton.addEventListener("click", (e) => addListButtonAction(e));
+listInput.addEventListener("keydown", (e) => addListButtonAction(e));
 taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
-todoInput.addEventListener("keydown", (e) => addListButtonAction(e));
 
 const storage = new LocalData();
 
@@ -56,12 +55,12 @@ const addTaskButtonAction = (e) => {
 }
 
 const addListButtonAction = (e) => {
-    if (!todoInput.value.trim()) return
-    if (e.key !== "Enter") return
-    const name = todoInput.value
+    if (!listInput.value.trim()) return
+    if (e.key !== "Enter" && e.type !== "click") return
+    const name = listInput.value
     const newList = new List(crypto.randomUUID(), name, false, [], true)
     storage.saveList(newList)
-    todoInput.value = "";
+    listInput.value = "";
     render()
 }
 
@@ -71,7 +70,7 @@ function loadTasks() {
     for (let i = 0; i < selectedList.tasks.length; i++) {
         const { name, completed, creationDate } = selectedList.tasks[i];
         const onClick = () => {
-            selectedList.tasks[i].completed = true
+            selectedList.tasks[i].completed === true ? selectedList.tasks[i].completed = false : selectedList.tasks[i].completed = true;
             render()
         }
         new Task(name, completed, creationDate).renderElement(onClick)
@@ -85,15 +84,9 @@ function clearTasks() {
 }
 
 function clearLists() {
-    while (todoList.firstChild) {
-        todoList.removeChild(todoList.firstChild)
+    while (listList.firstChild) {
+        listList.removeChild(listList.firstChild)
     }
 }
-
-function deleteAllLists() {
-    storage.deleteAllLists()
-    clearLists()
-}
-
 
 render()

@@ -8,12 +8,13 @@ export class List {
     }
 
     renderElement(onClick, onDelete, onEdit) {
-        const listList = document.getElementById("todo-list")
+        const listList = document.getElementById("list-list")
         const li = document.createElement("li");
         const buttonContainer = this.getButtonElements(onEdit, onDelete)
-
-        li.addEventListener("click", () => onClick());
-        li.innerHTML = this.name;
+        const p = document.createElement("p");
+        p.textContent = this.name
+        p.addEventListener("click", () => onClick());
+        li.appendChild(p)
         li.appendChild(buttonContainer);
         listList.appendChild(li);
     }
