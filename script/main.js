@@ -6,6 +6,9 @@ import { Task } from "./task.js";
 const taskInput = document.getElementById("new-task-input");
 const listInput = document.getElementById("new-list-input");
 
+const taskSection = document.querySelector("[class='task-section']");
+
+
 const newListButton = document.getElementById("new-list-button");
 
 const taskList = document.getElementById("task-list")
@@ -21,10 +24,18 @@ const storage = new LocalData();
 function render() {
     clearTasks()
     clearLists()
+    showTaskInteface()
     loadLists()
     loadTasks()
 }
 
+function showTaskInteface(){
+    if(storage.getSelectedList()){
+    taskSection.removeAttribute("hidden")
+    } else{
+        taskSection.setAttribute("hidden")
+    }
+}
 
 function loadLists() {
     for (const list of storage.getLists()) {

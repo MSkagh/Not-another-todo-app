@@ -1,10 +1,39 @@
 @import url(/styles/lists.css);
 @import url(/styles/tasks.css);
+@import url(/styles/typography.css);
+*{
+  --color-text:#14223C;
+  --color-main:#F8F1BF;
+  --color-secondary:#D1B58F;
+  --color-accent:#5F7A82;
+  --color-input-text: #14223C;
+
+  @media (prefers-color-scheme: dark){
+    --color-text:#F8F1BF;
+    --color-main:#14223C;
+    --color-secondary:#253A54;
+    --color-accent:#5F7A82;
+  }
+  color: var(--color-text);
+
+  margin: 0;
+  padding: 0;
+  input{
+    height: 28px;
+    color: var(--color-input-text);
+    border: none;
+  }
+  input:focus-within{
+    outline: none;
+  }
+
+}
 body{
     padding: 0;
     margin: 0;
-    background-color: gray;
+    background-color: var(--color-main);
     box-sizing: border-box;
+    
 }
 .layout {
   display: grid;

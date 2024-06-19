@@ -1,59 +1,56 @@
 .task-section {
   border: 1px solid rgb(63, 63, 63);
   border-radius: 5px;
-  box-shadow: 5px 5px 5px 5px rgb(161, 139, 139);
+  box-shadow: 5px 5px 5px 5px var(--color-accent);
   margin: 0rem 5rem;
-  background: linear-gradient(167deg, #b9efee, #05465e);
+  background: var(--color-secondary);
  
   h1 {
-    margin: 0;
-    padding: 0;
     text-align: center;
   }
   .new-task-container{
     display: grid;
     align-content: center;
     grid-auto-flow: column;
-    margin: auto;
+    margin: 1em auto;
     max-width: 300px;
-
+    
     #new-task-input{
-      height: 28px;
-      box-shadow: -3px 0px 0px 3px #009688;
+      box-shadow: -3px 0px 0px 3px var(--color-accent);
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
-      border: none;
+      text-indent: 10px;
     }
-    #new-task-input:focus-visible{
-      outline: none;
-    }
+
     #new-task-button{
-      background: green;
-      box-shadow: 3px 0px 0px 3px #009688;
+      background: var(--color-accent);
+      box-shadow: 3px 0px 0px 3px var(--color-accent);
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       border: none;
     }
   }
-  ul {
+  #task-list {
     list-style: none;
     padding-inline-start: 0;
+
     .task {
       margin: 5px;
       font-size: 24px;
       cursor: pointer;
       border-radius: 7px;
-      padding: 5px;
+      padding: 5px 1em;
+      background-color: var(--color-accent);
 
     }
-    li::after{
+    .task::after{
       content: "...";
     }
-    li:hover {
+    .task:hover {
       opacity: 0.75;
     }
     .completed {
-      background-color: green;
+      background-color: var(--color-secondary);
       text-decoration: line-through;
     }
   }

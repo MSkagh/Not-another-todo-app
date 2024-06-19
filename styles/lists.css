@@ -1,6 +1,6 @@
 .list-section {
-  box-shadow: 5px 5px 5px 5px #fff2006d;
-  background-color: #fff200;
+  box-shadow: 5px 5px 5px 5px var(--color-accent);
+  background-color: var(--color-secondary);
   padding: 1rem;
 
   .new-list-container{
@@ -9,28 +9,16 @@
     grid-auto-flow: column;
 
     #new-list-input{
-      border: none;
-      box-shadow: -3px 0px 0px 3px;
-      height: 28px;
+      box-shadow: -3px 0px 0px 3px var(--color-accent);
+      text-indent: 5px;
     }
-    #new-list-input:focus-visible {
-      outline: none;
-    }
+    
     #new-list-button{
       border: none;
-      background: none;
-      box-shadow: 3px 0px 0px 3px;
+      background: var(--color-accent);
+      box-shadow: 3px 0px 0px 3px var(--color-accent);
     }
-  }
-  
-  h1 {
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
-    line-height: calc(28px * 1.5);
-    letter-spacing: -1.5px;
-  }
-  
+  }  
   ul {
     padding-inline-start: 0;
     li {
