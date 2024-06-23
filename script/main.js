@@ -20,7 +20,6 @@ taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
 
 const storage = new LocalData();
 
-
 function render() {
     clearTasks()
     clearLists()
