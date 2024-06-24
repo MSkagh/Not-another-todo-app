@@ -1,13 +1,13 @@
 import { List } from "./list.js"
 export class LocalData {
-    
+
     constructor() {
-        if (LocalData._instance){
+        if (LocalData._instance) {
             throw new Error("Only one LocalData object allowed")
         }
         LocalData._instance = this;
         this.LOCAL_LISTS = JSON.parse(localStorage.getItem("lists")) || []
-        
+
     }
 
     saveList(list) {
@@ -48,6 +48,7 @@ export class LocalData {
                 indexOfList = i;
         }
         this.LOCAL_LISTS.splice(indexOfList, 1)
+        this.deselectAllLists()
         this.persistChanges()
     }
     deselectAllLists() {

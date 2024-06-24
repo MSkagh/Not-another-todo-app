@@ -2,27 +2,27 @@
   border: 1px solid rgb(63, 63, 63);
   border-radius: 5px;
   box-shadow: 5px 5px 5px 5px var(--color-accent);
-  margin: 0rem 5rem;
+  margin: 1rem 5rem;
   background: var(--color-secondary);
- 
+
   h1 {
     text-align: center;
   }
-  .new-task-container{
+  .new-task-container {
     display: grid;
     align-content: center;
     grid-auto-flow: column;
     margin: 1em auto;
     max-width: 300px;
-    
-    #new-task-input{
+
+    #new-task-input {
       box-shadow: -3px 0px 0px 3px var(--color-accent);
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
       text-indent: 10px;
     }
 
-    #new-task-button{
+    #new-task-button {
       background: var(--color-accent);
       box-shadow: 3px 0px 0px 3px var(--color-accent);
       border-top-right-radius: 5px;
@@ -41,9 +41,8 @@
       border-radius: 7px;
       padding: 5px 1em;
       background-color: var(--color-accent);
-
     }
-    .task::after{
+    .task::after {
       content: "...";
     }
     .task:hover {

@@ -10,11 +10,13 @@ const taskSection = document.querySelector("[class='task-section']");
 
 
 const newListButton = document.getElementById("new-list-button");
-
+const newTaskButton = document.getElementById("new-task-button")
 const taskList = document.getElementById("task-list")
 const listList = document.getElementById("list-list")
 
 newListButton.addEventListener("click", (e) => addListButtonAction(e));
+newTaskButton.addEventListener("click", (e) => addTaskButtonAction(e));
+
 listInput.addEventListener("keydown", (e) => addListButtonAction(e));
 taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
 
@@ -28,11 +30,11 @@ function render() {
     loadTasks()
 }
 
-function showTaskInteface(){
-    if(storage.getSelectedList()){
-    taskSection.removeAttribute("hidden")
-    } else{
-        taskSection.setAttribute("hidden")
+function showTaskInteface() {
+    if (storage.getSelectedList()) {
+        taskSection.removeAttribute("hidden")
+    } else {
+        taskSection.setAttribute("hidden", true)
     }
 }
 
@@ -55,8 +57,8 @@ function loadLists() {
 
 const addTaskButtonAction = (e) => {
     if (!taskInput.value.trim()) return
-    if(!storage.getSelectedList()) return
-    if (e.key !== "Enter") return
+    if (e.key !== "Enter" && e.type !== "click") return
+    if (!storage.getSelectedList()) return
     const task = new Task(taskInput.value, false, new Date(Date.now()))
     task.renderElement()
     storage.saveTask(task)

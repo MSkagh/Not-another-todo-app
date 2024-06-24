@@ -1,49 +1,65 @@
 .list-section {
-  box-shadow: 5px 5px 5px 5px var(--color-accent);
-  background-color: var(--color-secondary);
-  padding: 1rem;
 
-  .new-list-container{
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  padding: 2rem;
+
+  .new-list-container {
     display: grid;
     align-content: center;
     grid-auto-flow: column;
 
-    #new-list-input{
+    #new-list-input {
       box-shadow: -3px 0px 0px 3px var(--color-accent);
       text-indent: 5px;
     }
-    
-    #new-list-button{
+
+    #new-list-button {
       border: none;
       background: var(--color-accent);
       box-shadow: 3px 0px 0px 3px var(--color-accent);
     }
-  }  
+  }
   ul {
     padding-inline-start: 0;
+    margin-top: 1rem;
     li {
       list-style: none;
-      margin: 5px;
+      padding: 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      scale: 1;
+      filter: brightness(75%);
     }
-    p{
+    li:hover {
+      
+      filter: brightness(100%);
+    }
+    li:hover p {
       cursor: pointer;
+      transform: scale(1.5);
+      transition-duration: 0.1s;
+      filter: brightness(100%);
     }
-    p:hover {
-      opacity: 0.75;
+    li:hover + li p {
+      transform: scale(1.1);
+      transition-duration: 0.1s;
     }
-    .button-container{
-        display: flex;
-        margin-left: 10px;
+    li:has(+ li:hover) p {
+      transform: scale(1.1);
+      transition-duration: 0.1s;
+    }
+    .button-container {
+      display: flex;
+      margin-left: 10px;
     }
     .delete-button,
     .edit-button {
       cursor: pointer;
       background-color: red;
       height: 20px;
-      width: 30px;
+      width: 20px;
+      border-radius: 100%;
       box-shadow: none;
       display: grid;
       align-content: center;

@@ -18,17 +18,18 @@ export class List {
         li.appendChild(buttonContainer);
         listList.appendChild(li);
     }
-    getButtonElements(onEdit, onDelete){
+    getButtonElements(onEdit, onDelete) {
         const buttonContainer = document.createElement("div")
         buttonContainer.classList.add("button-container")
         const deleteButton = document.createElement("button")
         deleteButton.classList.add("delete-button")
+        deleteButton.innerText = "X"
         deleteButton.addEventListener("click", () => onDelete())
-        const editButton = document.createElement("button")
-        editButton.classList.add("edit-button")
-        editButton.addEventListener("click", () => onEdit())
+        // const editButton = document.createElement("button")
+        // editButton.classList.add("edit-button")
+        // editButton.addEventListener("click", () => onEdit())
 
-        buttonContainer.appendChild(editButton)
+        // buttonContainer.appendChild(editButton)
         buttonContainer.appendChild(deleteButton)
 
         return buttonContainer
