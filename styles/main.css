@@ -19,9 +19,10 @@
   margin: 0;
   padding: 0;
   input {
-    height: 28px;
+    background-color: var(--color-text);
     color: var(--color-input-text);
     border: none;
+    cursor: text;
   }
   input:focus-within {
     outline: none;
@@ -30,7 +31,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: var(--color-main);
+  background: var(--color-main);
   box-sizing: border-box;
 }
 .layout {

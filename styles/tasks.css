@@ -20,6 +20,7 @@
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
       text-indent: 10px;
+      height: 28px;
     }
 
     #new-task-button {

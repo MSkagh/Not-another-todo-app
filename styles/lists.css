@@ -7,21 +7,26 @@
     display: grid;
     align-content: center;
     grid-auto-flow: column;
-
+    border: 3px solid var(--color-secondary);
+    background: var(--color-accent);
+   
+    
     #new-list-input {
-      box-shadow: -3px 0px 0px 3px var(--color-accent);
       text-indent: 5px;
+      height: 28px;
     }
 
     #new-list-button {
       border: none;
-      background: var(--color-accent);
-      box-shadow: 3px 0px 0px 3px var(--color-accent);
+     background-color: transparent;
+     border-left: 3px solid black;
+
+      /* box-shadow: 3px 0px 0px 3px var(--color-accent); */
     }
   }
   ul {
     padding-inline-start: 0;
-    margin-top: 1rem;
+    margin-top: 3rem;
     li {
       list-style: none;
       padding: 5px;
