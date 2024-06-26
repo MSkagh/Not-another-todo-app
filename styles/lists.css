@@ -1,6 +1,9 @@
 .list-section {
-
-  background: linear-gradient(90deg, var(--color-secondary), var(--color-accent));
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary),
+    var(--color-accent)
+  );
   padding: 2rem;
 
   .new-list-container {
@@ -9,8 +12,7 @@
     grid-auto-flow: column;
     border: 3px solid var(--color-secondary);
     background: var(--color-accent);
-   
-    
+
     #new-list-input {
       text-indent: 5px;
       height: 28px;
@@ -18,8 +20,8 @@
 
     #new-list-button {
       border: none;
-     background-color: transparent;
-     border-left: 3px solid black;
+      background-color: transparent;
+      border-left: 3px solid black;
 
       /* box-shadow: 3px 0px 0px 3px var(--color-accent); */
     }
@@ -37,7 +39,6 @@
       filter: brightness(75%);
     }
     li:hover {
-      
       filter: brightness(100%);
     }
     li:hover p {

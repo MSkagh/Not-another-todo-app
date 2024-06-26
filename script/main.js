@@ -83,9 +83,15 @@ function loadTasks() {
         const { name, completed, creationDate } = selectedList.tasks[i];
         const onClick = () => {
             selectedList.tasks[i].completed === true ? selectedList.tasks[i].completed = false : selectedList.tasks[i].completed = true;
+            storage.persistChanges()
             render()
         }
-        new Task(name, completed, creationDate).renderElement(onClick)
+        const onDelete = ()=> {
+            selectedList.tasks.splice(i, 1)
+            storage.persistChanges();
+            render()
+        }
+        new Task(name, completed, creationDate).renderElement(onClick, onDelete)
     }
 }
 

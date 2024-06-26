@@ -5,13 +5,33 @@ export class Task {
         this.creationDate = creationDate;
     }
 
-    renderElement(onClick) {
+    renderElement(onClick, onDelete) {
         const todoList = document.getElementById("task-list")
         const li = document.createElement("li");
-        li.innerHTML = this.name;
+        const p = document.createElement("p")
+        p.innerText = this.name;
         li.classList.add("task")
+        p.addEventListener('click', () => onClick())
         if (this.completed) li.classList.add("completed")
-        li.addEventListener('click', () => onClick())
+        li.appendChild(p)
+        li.appendChild(this.getButtonElements(onDelete))
+        
         todoList.appendChild(li);
+    }
+    getButtonElements(onDelete) {
+        const buttonContainer = document.createElement("div")
+        buttonContainer.classList.add("button-container")
+        const deleteButton = document.createElement("button")
+        deleteButton.classList.add("delete-button")
+        deleteButton.innerText = "X"
+        deleteButton.addEventListener("click", () => onDelete())
+        // const editButton = document.createElement("button")
+        // editButton.classList.add("edit-button")
+        // editButton.addEventListener("click", () => onEdit())
+
+        // buttonContainer.appendChild(editButton)
+        buttonContainer.appendChild(deleteButton)
+
+        return buttonContainer
     }
 }
