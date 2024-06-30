@@ -56,12 +56,13 @@
       opacity: 0.75;
     }
     p{
-      cursor: pointer;
+      cursor: pointer;      
     }
     .completed {
       background-color: var(--color-secondary);
-      text-decoration: line-through;
+      text-decoration: line-through;   
     }
+
     .delete-button,
     .edit-button {
       cursor: pointer;

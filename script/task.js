@@ -5,12 +5,16 @@ export class Task {
         this.creationDate = creationDate;
     }
 
-    renderElement(onClick, onDelete) {
+    renderElement(onClick, onDelete, onDragStart ,onDragEnd, onDragOver) {
         const todoList = document.getElementById("task-list")
         const li = document.createElement("li");
         const p = document.createElement("p")
         p.innerText = this.name;
         li.classList.add("task")
+        li.draggable = true;
+        li.ondragstart = onDragStart
+        li.ondragend = onDragEnd
+        li.ondragover = onDragOver
         p.addEventListener('click', () => onClick())
         if (this.completed) li.classList.add("completed")
         li.appendChild(p)

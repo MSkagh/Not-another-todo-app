@@ -1,6 +1,7 @@
 @import url(/styles/lists.css);
 @import url(/styles/tasks.css);
 @import url(/styles/typography.css);
+@import url(/styles/keyframes.css);
 * {
   --color-text: #14223c;
   --color-main: #f8f1bf;

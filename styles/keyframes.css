@@ -1,0 +1,19 @@
+@keyframes pulse {
+  50% {
+    transform: scale(1.1);
+  }
+}
+@keyframes jump {
+  50% {
+    transform: translateY(-15px);
+  }
+}
+@keyframes slide {
+  to {
+    translate: 0;
+  }
+}
+
+.jump{
+    animation: 500ms forwards jump;
+}

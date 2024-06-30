@@ -14,6 +14,8 @@ const newTaskButton = document.getElementById("new-task-button")
 const taskList = document.getElementById("task-list")
 const listList = document.getElementById("list-list")
 
+let taskBeeingDragged = null;
+
 newListButton.addEventListener("click", (e) => addListButtonAction(e));
 newTaskButton.addEventListener("click", (e) => addTaskButtonAction(e));
 
@@ -60,7 +62,7 @@ const addTaskButtonAction = (e) => {
     if (e.key !== "Enter" && e.type !== "click") return
     if (!storage.getSelectedList()) return
     const task = new Task(taskInput.value, false, new Date(Date.now()))
-    task.renderElement()
+    //task.renderElement()
     storage.saveTask(task)
     taskInput.value = ""
     render()
@@ -91,7 +93,23 @@ function loadTasks() {
             storage.persistChanges();
             render()
         }
-        new Task(name, completed, creationDate).renderElement(onClick, onDelete)
+        const onDragStart = (e) =>{
+            e.dataTransfer.effectAllowed = 'move'
+            e.dataTransfer.setData('text/plain', null)
+            taskBeeingDragged = e.target
+        }
+        const onDragEnd = (e) =>{
+            taskBeeingDragged = null
+        }
+        const onDragOver = (e) =>{
+            if (isBefore(taskBeeingDragged, e.target)) {
+                e.target.parentNode.insertBefore(taskBeeingDragged, e.target)
+              } else {
+                e.target.parentNode.insertBefore(taskBeeingDragged, e.target.nextSibling)
+              }
+            
+        }
+        new Task(name, completed, creationDate).renderElement(onClick, onDelete, onDragStart, onDragEnd, onDragOver)
     }
 }
 
@@ -106,5 +124,15 @@ function clearLists() {
         listList.removeChild(listList.firstChild)
     }
 }
+
+function isBefore(el1, el2) {
+    let cur
+    if (el2.parentNode === el1.parentNode) {
+      for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
+        if (cur === el2) return true
+      }
+    }
+    return false;
+  }
 
 render()
