@@ -11,10 +11,12 @@ const taskSection = document.querySelector("[class='task-section']");
 
 const newListButton = document.getElementById("new-list-button");
 const newTaskButton = document.getElementById("new-task-button")
-const taskList = document.getElementById("task-list")
-const listList = document.getElementById("list-list")
 
-let taskBeeingDragged = null;
+const lists = document.getElementById("lists")
+
+
+
+let renderCount = 0
 
 newListButton.addEventListener("click", (e) => addListButtonAction(e));
 newTaskButton.addEventListener("click", (e) => addTaskButtonAction(e));
@@ -25,11 +27,10 @@ taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
 const storage = new LocalData();
 
 function render() {
-    clearTasks()
-    clearLists()
+    console.log("Rendering for the " + renderCount + " time")
+    renderCount++
     showTaskInteface()
     loadLists()
-    loadTasks()
 }
 
 function showTaskInteface() {
@@ -42,18 +43,8 @@ function showTaskInteface() {
 
 function loadLists() {
     for (const list of storage.getLists()) {
-        const onClick = () => {
-            storage.setSelectedList(list.id)
-            render()
-        }
-        const onDelete = () => {
-            storage.deleteListById(list.id)
-            render()
-        }
-        const onEdit = () => {
-            alert("edit")
-        }
-        list.renderElement(onClick, onDelete, onEdit);
+           list.renderElement(storage);
+           if (storage.getSelectedList() && list.id === storage.getSelectedList().id) list.loadTasks(storage)
     }
 }
 
@@ -61,11 +52,10 @@ const addTaskButtonAction = (e) => {
     if (!taskInput.value.trim()) return
     if (e.key !== "Enter" && e.type !== "click") return
     if (!storage.getSelectedList()) return
-    const task = new Task(taskInput.value, false, new Date(Date.now()))
-    //task.renderElement()
+    const task = new Task(crypto.randomUUID(), taskInput.value, false, new Date(Date.now()))
+    task.renderElement(storage)
     storage.saveTask(task)
     taskInput.value = ""
-    render()
 }
 
 const addListButtonAction = (e) => {
@@ -73,66 +63,18 @@ const addListButtonAction = (e) => {
     if (e.key !== "Enter" && e.type !== "click") return
     const name = listInput.value
     const newList = new List(crypto.randomUUID(), name, false, [], true)
+    storage.setSelectedList(newList.id)
+    newList.renderElement(storage);
+    newList.clearTasks()
+    newList.loadTasks()
     storage.saveList(newList)
     listInput.value = "";
-    render()
-}
-
-function loadTasks() {
-    const selectedList = storage.getSelectedList();
-    if (!selectedList) return
-    for (let i = 0; i < selectedList.tasks.length; i++) {
-        const { name, completed, creationDate } = selectedList.tasks[i];
-        const onClick = () => {
-            selectedList.tasks[i].completed === true ? selectedList.tasks[i].completed = false : selectedList.tasks[i].completed = true;
-            storage.persistChanges()
-            render()
-        }
-        const onDelete = ()=> {
-            selectedList.tasks.splice(i, 1)
-            storage.persistChanges();
-            render()
-        }
-        const onDragStart = (e) =>{
-            e.dataTransfer.effectAllowed = 'move'
-            e.dataTransfer.setData('text/plain', null)
-            taskBeeingDragged = e.target
-        }
-        const onDragEnd = (e) =>{
-            taskBeeingDragged = null
-        }
-        const onDragOver = (e) =>{
-            if (isBefore(taskBeeingDragged, e.target)) {
-                e.target.parentNode.insertBefore(taskBeeingDragged, e.target)
-              } else {
-                e.target.parentNode.insertBefore(taskBeeingDragged, e.target.nextSibling)
-              }
-            
-        }
-        new Task(name, completed, creationDate).renderElement(onClick, onDelete, onDragStart, onDragEnd, onDragOver)
-    }
-}
-
-function clearTasks() {
-    while (taskList.firstChild) {
-        taskList.removeChild(taskList.firstChild)
-    }
 }
 
 function clearLists() {
-    while (listList.firstChild) {
-        listList.removeChild(listList.firstChild)
+    while (lists.firstChild) {
+        lists.removeChild(lists.firstChild)
     }
 }
-
-function isBefore(el1, el2) {
-    let cur
-    if (el2.parentNode === el1.parentNode) {
-      for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
-        if (cur === el2) return true
-      }
-    }
-    return false;
-  }
 
 render()

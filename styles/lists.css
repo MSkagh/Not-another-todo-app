@@ -26,10 +26,10 @@
       /* box-shadow: 3px 0px 0px 3px var(--color-accent); */
     }
   }
-  ul {
+  #lists {
     padding-inline-start: 0;
     margin-top: 3rem;
-    li {
+    .list {
       list-style: none;
       padding: 5px;
       display: flex;
@@ -38,20 +38,20 @@
       scale: 1;
       filter: brightness(75%);
     }
-    li:hover {
+    .list:hover {
       filter: brightness(100%);
     }
-    li:hover p {
+    .list:hover p {
       cursor: pointer;
       transform: scale(1.5);
       transition-duration: 0.1s;
       filter: brightness(100%);
     }
-    li:hover + li p {
+    .list:hover + li p {
       transform: scale(1.1);
       transition-duration: 0.1s;
     }
-    li:has(+ li:hover) p {
+    .list:has(+ li:hover) p {
       transform: scale(1.1);
       transition-duration: 0.1s;
     }
