@@ -6,7 +6,7 @@ import { Task } from "./task.js";
 const taskInput = document.getElementById("new-task-input");
 const listInput = document.getElementById("new-list-input");
 
-const taskSection = document.querySelector("[class='task-section']");
+
 
 
 const newListButton = document.getElementById("new-list-button");
@@ -25,26 +25,23 @@ listInput.addEventListener("keydown", (e) => addListButtonAction(e));
 taskInput.addEventListener("keydown", (e) => addTaskButtonAction(e));
 
 const storage = new LocalData();
+const selectedList = storage.getSelectedList()
 
 function render() {
     console.log("Rendering for the " + renderCount + " time")
     renderCount++
-    showTaskInteface()
+    console.log(selectedList)
+    if (selectedList) selectedList.showListInterface(storage)
     loadLists()
-}
-
-function showTaskInteface() {
-    if (storage.getSelectedList()) {
-        taskSection.removeAttribute("hidden")
-    } else {
-        taskSection.setAttribute("hidden", true)
-    }
 }
 
 function loadLists() {
     for (const list of storage.getLists()) {
-           list.renderElement(storage);
-           if (storage.getSelectedList() && list.id === storage.getSelectedList().id) list.loadTasks(storage)
+        list.renderElement(storage);
+        if (storage.getSelectedList() && list.id === storage.getSelectedList().id) {
+            list.loadTasks(storage)
+            list.showListInterface(storage)
+        }
     }
 }
 

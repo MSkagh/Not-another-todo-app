@@ -1,7 +1,7 @@
 import { Task } from "./task.js";
 const taskList = document.getElementById("task-list")
 const todoListHeader = document.getElementById("todo-list-header")
-
+const taskSection = document.querySelector("[class='task-section']");
 export class List {
     constructor(id, name, completed, tasks, selected) {
         this.id = id;
@@ -34,14 +34,16 @@ export class List {
         buttonContainer.appendChild(deleteButton)
         return buttonContainer
     }
-    onClick(storage){
+    onClick(storage) {
         this.clearTasks()
         todoListHeader.innerText = this.name;
         storage.setSelectedList(this.id)
         this.loadTasks(storage)
+        this.showListInterface(storage)
         storage.persistChanges()
+
     }
-    onDelete(storage){
+    onDelete(storage) {
         storage.deleteListById(this.id)
     }
     loadTasks(storage) {
@@ -50,10 +52,18 @@ export class List {
             new Task(id, name, completed, creationDate).renderElement(storage, this.tasks)
         }
     }
-    
+
     clearTasks() {
         while (taskList.firstChild) {
             taskList.removeChild(taskList.firstChild)
+        }
+    }
+    showListInterface(storage) {
+        todoListHeader.innerText = this.name
+        if (storage.getSelectedList()) {
+            taskSection.removeAttribute("hidden")
+        } else {
+            taskSection.setAttribute("hidden", true)
         }
     }
 }

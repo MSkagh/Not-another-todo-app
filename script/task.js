@@ -11,7 +11,7 @@ export class Task {
         Task.counter ++
     }
 
-    renderElement(storage, parentList) {
+    renderElement(storage, tasks) {
         console.log(this)
         const todoList = document.getElementById("task-list")
         const li = document.createElement("li");
@@ -23,20 +23,20 @@ export class Task {
         li.ondragstart = this.onDragStart
         li.ondragend = this.onDragEnd
         li.ondragover = this.onDragOver
-        p.addEventListener('click', (e) => this.onClick(e, storage, parentList))
+        p.addEventListener('click', (e) => this.onClick(e, storage, tasks))
         if (this.completed) li.classList.add("completed")
         li.appendChild(p)
-        li.appendChild(this.getButtonElements(storage))
+        li.appendChild(this.getButtonElements(storage,tasks))
         
         todoList.appendChild(li);
     }
-    getButtonElements(storage) {
+    getButtonElements(storage, tasks) {
         const buttonContainer = document.createElement("div")
         buttonContainer.classList.add("button-container")
         const deleteButton = document.createElement("button")
         deleteButton.classList.add("delete-button")
         deleteButton.innerText = "X"
-        deleteButton.addEventListener("click", () => this.onDelete(storage))
+        deleteButton.addEventListener("click", () => this.onDelete(storage, tasks))
         buttonContainer.appendChild(deleteButton)
         return buttonContainer
     }
@@ -46,8 +46,12 @@ export class Task {
         console.log(parentList)
         storage.persistChanges()
     }
-    onDelete = (storage)=> {
-        //storage.getSelectedList().tasks.splice(i, 1)
+    onDelete = (storage, tasks)=> {
+        const task = document.querySelector(`[data-id="${this.id}"]`)
+        task.classList.add("slide")
+        setTimeout(()=> task.remove(), 500)
+        const index = tasks.map(e => e.id).indexOf(this.id)
+        storage.getSelectedList().tasks.splice(index, 1)
         storage.persistChanges();
     }
     onDragStart = (e) =>{

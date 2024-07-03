@@ -10,10 +10,13 @@
 }
 @keyframes slide {
   to {
-    translate: 0;
+    translate: 100vw;
   }
 }
 
 .jump{
-    animation: 500ms forwards jump;
+    animation: 500ms forwards ease-out jump;
+}
+.slide{
+  animation: slide 500ms ease-in forwards;
 }
