@@ -59,7 +59,7 @@
       display: flex;
       margin-left: 10px;
     }
-    .delete-button,
+    #delete-button,
     .edit-button {
       cursor: pointer;
       background-color: red;

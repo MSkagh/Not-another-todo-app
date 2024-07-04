@@ -63,7 +63,7 @@
       text-decoration: line-through;   
     }
 
-    .delete-button,
+    #delete-button,
     .edit-button {
       cursor: pointer;
       background-color: red;

@@ -19,12 +19,7 @@
                 <input autocomplete="off" id="new-list-input" />
                 <button id="new-list-button">NEW</button>
             </div>
-            <ul id="lists">
-                <li class="list" data-id="50">
-                    <p>Text</p>
-                    <button>delete</button>
-                </li>
-            </ul>
+            <ul id="lists"></ul>
         </section>
         <section class="task-section" hidden>
             <h1 id="todo-list-header">Things to do</h1>
@@ -39,5 +34,16 @@
         </section>
     </main>
 </body>
-
+<template id="list-template">
+    <li class="list">
+        <p></p>
+        <button id="delete-button">X</button>
+    </li>
+</template>
+<template id="task-template">
+    <li class="task" draggable="true">
+        <p></p>
+        <button id="delete-button">X</button>
+    </li>
+</template>
 </html>

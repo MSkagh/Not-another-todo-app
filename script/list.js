@@ -12,28 +12,15 @@ export class List {
     }
 
     renderElement(storage) {
-        const listList = document.getElementById("lists")
-        const li = document.createElement("li");
-        li.dataset.id = this.id
-        const buttonContainer = this.getButtonElements(storage)
-        const p = document.createElement("p");
-        p.textContent = this.name
-        li.classList.add("list")
-        li.addEventListener("click", () => this.onClick(storage));
-        li.appendChild(p)
-        li.appendChild(buttonContainer);
-        listList.appendChild(li);
+        const listList = document.getElementById("lists");
+        const template = document.getElementById("list-template").content.firstElementChild.cloneNode(true);
+        template.dataset.id = this.id;
+        template.querySelector("p").innerText = this.name;
+        template.querySelector("#delete-button").addEventListener("click", () => this.onDelete(storage));
+        template.addEventListener("click", () => this.onClick(storage));
+        listList.appendChild(template);
     }
-    getButtonElements(storage) {
-        const buttonContainer = document.createElement("div")
-        buttonContainer.classList.add("button-container")
-        const deleteButton = document.createElement("button")
-        deleteButton.classList.add("delete-button")
-        deleteButton.innerText = "X"
-        deleteButton.addEventListener("click", () => this.onDelete(storage))
-        buttonContainer.appendChild(deleteButton)
-        return buttonContainer
-    }
+
     onClick(storage) {
         this.clearTasks()
         todoListHeader.innerText = this.name;
