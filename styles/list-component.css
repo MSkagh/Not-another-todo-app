@@ -1,0 +1,47 @@
+ul {
+    padding-inline-start: 0;
+    margin-top: 3rem;
+    list-style: none; 
+}
+
+li {
+  list-style: none;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  scale: 1;
+  filter: brightness(75%);
+
+}
+
+li:hover {
+  filter: brightness(100%);
+}
+li:hover p {
+  cursor: pointer;
+  transform: scale(1.5);
+  transition-duration: 0.1s;
+  filter: brightness(100%);
+}
+li:hover + li p {
+  transform: scale(1.1);
+  transition-duration: 0.1s;
+}
+li:has(+ li:hover) p {
+  transform: scale(1.1);
+  transition-duration: 0.1s;
+}
+
+#delete-button {
+  cursor: pointer;
+  background-color: red;
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+
+  display: grid;
+  align-content: center;
+  padding: 0;
+  margin: 0;
+}

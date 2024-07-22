@@ -10,7 +10,7 @@
   --color-input-text: #14223c;
 
   @media (prefers-color-scheme: dark) {
-    --color-text: #f8f1bf;
+    --color-text: #eceee2ce;
     --color-main: #14223c;
     --color-secondary: #253a54;
     --color-accent: #5f7a82;

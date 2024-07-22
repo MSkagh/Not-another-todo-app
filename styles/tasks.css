@@ -1,15 +1,25 @@
 .task-section {
-  border: 1px solid rgb(63, 63, 63);
+  
   border-radius: 5px;
-  box-shadow: 5px 5px 5px 5px var(--color-accent);
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2), -5px -5px 15px -5px rgba(255, 255, 255, 0.1);
   margin: 1rem 5rem;
-  background: var(--color-secondary);
+
   height: min-content;
   max-height: 80vh;
   padding: 2rem;
   overflow-y: scroll;
-  scrollbar-color: var(--color-secondary) var(--color-secondary);
+  scrollbar-color: var(--color-main) var(--color-main);
   
+  .task-list-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+      padding: 1rem;
+      background-color: var(--color-accent);
+      color: var(--color-text);
+    }
+  }
 
   h1 {
     text-align: center;
@@ -37,44 +47,31 @@
       border: none;
     }
   }
-  #task-list {
+  #tasks {
     list-style: none;
     padding-inline-start: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
 
-    .task {
-      margin: 5px;
+    li {
       font-size: 24px;
       border-radius: 7px;
       padding: 5px 1em;
-      background-color: var(--color-accent);
+      background-color: var(--color-accents);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-    }
-    
-    .task:hover {
-      opacity: 0.75;
-    }
+      gap: 1rem;  
+    }   
+     
     p{
       cursor: pointer;      
     }
-    .completed {
-      background-color: var(--color-secondary);
-      text-decoration: line-through;   
-    }
-
-    #delete-button,
-    .edit-button {
-      cursor: pointer;
-      background-color: red;
-      height: 20px;
-      width: 20px;
-      border-radius: 100%;
-      box-shadow: none;
-      display: grid;
-      align-content: center;
-      padding: 0;
-      margin: 0;
-    }
+  
+  }
+  input[type="checkbox"]{
+    width: 2rem;
+    height: 2rem;
   }
 }
+

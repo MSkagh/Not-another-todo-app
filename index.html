@@ -11,39 +11,34 @@
 
 <body>
     <script type="module" src="/script/main.js"></script>
+    <script src="/script/list-component.js" defer></script>
     <main class="layout">
 
         <section class="list-section">
             <h1>Your lists</h1>
-            <div class="new-list-container">
+            <div class="new-lists-container">
                 <input autocomplete="off" id="new-list-input" />
                 <button id="new-list-button">NEW</button>
             </div>
-            <ul id="lists"></ul>
+            <ul id="lists">
+            </ul>
         </section>
-        <section class="task-section" hidden>
-            <h1 id="todo-list-header">Things to do</h1>
+        <section class="task-section" hidden="true">
+            
+            <h1 id="task-list-header">Things to do</h1>
+            <div class="task-list-buttons">
+                <button id="delete-list-button">Delete</button>
+            </div>
+            
             <div class="new-task-container">
                 <input autocomplete="off" id="new-task-input" />
                 <button id="new-task-button">ADD</button>
             </div>
-            <ul id="task-list">
-                
-
+            <ul id="tasks">
             </ul>
         </section>
     </main>
 </body>
-<template id="list-template">
-    <li class="list">
-        <p></p>
-        <button id="delete-button">X</button>
-    </li>
-</template>
-<template id="task-template">
-    <li class="task" draggable="true">
-        <p></p>
-        <button id="delete-button">X</button>
-    </li>
-</template>
+
+
 </html>

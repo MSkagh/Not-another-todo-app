@@ -1,12 +1,10 @@
 .list-section {
-  background: linear-gradient(
-    90deg,
-    var(--color-secondary),
-    var(--color-accent)
-  );
+  margin: 1em;
   padding: 2rem;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2),
+    -2px -2px 15px rgba(255, 255, 255, 0.1);
 
-  .new-list-container {
+  .new-lists-container {
     display: grid;
     align-content: center;
     grid-auto-flow: column;
@@ -22,59 +20,54 @@
       border: none;
       background-color: transparent;
       border-left: 3px solid black;
-
-      /* box-shadow: 3px 0px 0px 3px var(--color-accent); */
     }
   }
-  #lists {
+  ul {
     padding-inline-start: 0;
     margin-top: 3rem;
-    .list {
-      list-style: none;
-      padding: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      scale: 1;
-      filter: brightness(75%);
-    }
-    .list:hover {
-      filter: brightness(100%);
-    }
-    .list:hover p {
-      cursor: pointer;
-      transform: scale(1.5);
-      transition-duration: 0.1s;
-      filter: brightness(100%);
-    }
-    .list:hover + li p {
-      transform: scale(1.1);
-      transition-duration: 0.1s;
-    }
-    .list:has(+ li:hover) p {
-      transform: scale(1.1);
-      transition-duration: 0.1s;
-    }
-    .button-container {
-      display: flex;
-      margin-left: 10px;
-    }
-    #delete-button,
-    .edit-button {
-      cursor: pointer;
-      background-color: red;
-      height: 20px;
-      width: 20px;
-      border-radius: 100%;
-      box-shadow: none;
-      display: grid;
-      align-content: center;
-      padding: 0;
-      margin: 0;
-    }
-    .edit-button {
-      background-color: orange;
-      margin-right: 3px;
-    }
+    list-style: none;
+  }
+
+  li {
+    width: max-content;
+    list-style: none;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    scale: 1;
+    filter: brightness(75%);
+  }
+
+  li:hover{
+    filter: brightness(100%);
+  }
+  li:hover{
+    cursor: pointer;
+    transform: scale(1.3);
+    transition-duration: 0.1s;
+    filter: brightness(100%);
+    font-weight: bold;
+  }
+  li:hover + li{
+    transform: scale(1.1);
+    transition-duration: 0.1s;
+  }
+  li:has(+ li:hover){
+    transform: scale(1.1);
+    transition-duration: 0.1s;
+  }
+
+  #delete-button {
+    cursor: pointer;
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+
+    display: grid;
+    align-content: center;
+    padding: 0;
+    margin: 0;
   }
 }
